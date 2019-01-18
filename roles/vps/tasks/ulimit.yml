@@ -1,0 +1,30 @@
+---
+- name: Add or Modify ulimit to rc.local
+  lineinfile:
+    backrefs: no
+    dest: /etc/rc.local
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^ulimit -SHn 1024000',line: 'ulimit -SHn 1024000' }
+#    - { regexp: '^ulimit -c unlimited',line: 'ulimit -c unlimited' }
+  tags:
+    - limit_profile
+
+- name: Add or Modify soft/hard limit.
+  pam_limits:
+    dest: "{{ item.dest }}"
+    domain: '*'
+    limit_type: "{{ item.limit_type }}"
+    limit_item: "{{ item.limit_item }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { dest: '/etc/security/limits.conf',limit_type: 'soft',limit_item: 'nofile', value: '1024000' }
+    - { dest: '/etc/security/limits.conf',limit_type: 'hard',limit_item: 'nofile', value: '1024000' }
+    - { dest: '/etc/security/limits.conf',limit_type: 'soft',limit_item: 'nproc', value: '1024000' }
+    - { dest: '/etc/security/limits.conf',limit_type: 'hard',limit_item: 'nproc', value: '1024000' }
+    - { dest: '/etc/security/limits.conf',limit_type: 'soft',limit_item: 'core', value: 'unlimited' }
+    #- { dest: '/etc/security/limits.conf',limit_type: 'soft',limit_item: 'sigpending', value: '255377' }
+    #- { dest: '/etc/security/limits.conf',limit_type: 'hard',limit_item: 'sigpending', value: '255377' }
+    - { dest: '/etc/security/limits.d/90-nproc.conf', limit_type: 'soft',limit_item: 'nproc', value: '262144' }
+    - { dest: '/etc/security/limits.d/90-nproc.conf', limit_type: 'hard',limit_item: 'nproc', value: '262144' }

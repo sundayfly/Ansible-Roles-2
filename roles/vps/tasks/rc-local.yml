@@ -1,0 +1,12 @@
+---
+- name: Ensure rc.local is created.
+  file:
+    path: '/etc/rc.local'
+    mode: a+x
+
+- name: Ensure rc-local is started and enabled to start at boot.
+  systemd: 
+    name: rc-local
+    state: started
+    enabled: yes
+

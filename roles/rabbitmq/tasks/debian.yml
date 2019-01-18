@@ -1,0 +1,45 @@
+---
+# Standart repository for Debian / Ubuntu (http://www.rabbitmq.com/install-debian.html)
+- name: Add repository key.
+  apt_key: 
+    url: "{{ rabbitmq_apt_key }}"
+    state: present
+
+- name: Add rabbitmq apt repository
+  apt_repository:
+    repo: "deb {{ rabbitmq_apt_repo }} {{ ansible_distribution_release }} main"
+    update_cache: yes
+    state: present
+
+- name: Add erlang apt repository.
+  apt_repository:
+    repo: "deb {{ erlang_apt_repo }} {{ ansible_distribution_release }} erlang"
+    update_cache: yes
+    state: present
+   
+- name: Ensure rabbitmq package is installed.
+  apt: 
+    update_cache: yes
+    force: yes
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ rabbitmq_apt_version | default('rabbitmq-server')}}"
+
+- name: Copy rabbitmq erlang.cookie.
+  template:
+    src: erlang.cookie
+    dest: "{{ rabbitmq_data }}/.erlang.cookie"
+    mode: 0600
+
+- name: Customize logrotate rules
+  template:
+    src: rabbitmq.logrorate
+    dest: /etc/logrotate.d/rabbitmq-server
+    mode: 0644
+
+- name: Ensure docker is started and enabled to start at boot.
+  service: 
+    name: rabbitmq-server
+    state: started
+    enabled: yes

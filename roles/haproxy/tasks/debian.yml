@@ -1,0 +1,41 @@
+---
+- name: Ensure dependency packages is installed.
+  apt: 
+    name: software-properties-common
+    state: latest
+
+- apt_repository:
+    repo: 'ppa:vbernat/haproxy-1.8'
+    codename: xenial
+
+- name: Ensure HAProxy is installed.
+  apt: 
+    update_cache: yes
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - haproxy 
+
+- name: Copy haproxy configuration in place.
+  template:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0644
+    validate: haproxy -f %s -c -q
+  notify:
+    - reload haproxy
+
+- name: Check if haproxy service check exist.
+  shell: grep "^check)" /etc/init.d/haproxy
+  register: check_11
+  ignore_errors: yes
+
+- name: Configure haproxy service add check
+  replace:
+    dest: /etc/init.d/haproxy
+    regexp: '^status'
+    replace: 'check)\n    $HAPROXY -c -q -V -f $CONFIG\n    ;;\nstatus'
+  when: check_11 is failed
+
+- name: Ensure haproxy is started and enabled to start at boot.
+  service: name=haproxy state=started enabled=yes

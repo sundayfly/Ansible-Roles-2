@@ -1,0 +1,48 @@
+---
+- name: Ensure keepalived package is installed.
+  apt: 
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+    force: yes
+  with_items:
+    - "{{ keepalived_apt_version | default('keepalived')}}"
+
+- name: Copy keepalived conf
+  template:
+    src: keepalived.conf
+    dest: /etc/keepalived/
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload keepalived
+
+- name: Copy keepalived notify and check shell
+  template:
+    src: "{{ item }}"
+    dest: /etc/keepalived/
+    mode: 0755
+  with_items:
+    - notify.sh
+    - chk_nginx.sh
+
+- name: Configure keepalived log path
+  template:
+    src: keepalived.daemon.args
+    dest: /etc/default/keepalived
+    mode: 0644
+
+- name: Configure rsyslog conf
+  template:
+    src: keepalived.rsyslog
+    dest: /etc/rsyslog.d/keepalived.conf
+    mode: 0644
+  notify:
+    - restart rsyslog
+
+- name: Ensure keepalived is started and enabled to start at boot.
+  service: 
+    name: keepalived
+    state: started
+    enabled: yes

@@ -1,0 +1,17 @@
+---
+- name: Run shadowsocksr docker.
+  docker_container:
+    name: ssr
+    image: sundayle/shadowsocksr
+    state: started
+    restart: yes
+    restart_policy: always
+    ports:
+    - "24771:8388/tcp"
+    - "24772:8388/tcp"
+    - "24773:8388/tcp"
+    - "24774:8388/tcp"
+    env:
+      METHOD: chacha20-ietf
+      PROTOCOL: auth_aes128_md5
+      PASSWORD: sunday

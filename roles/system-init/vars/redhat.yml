@@ -1,0 +1,48 @@
+### redhat ###
+centos7_repo: 'http://mirrors.aliyun.com/repo/Centos-7.repo'
+centos7_epel: 'http://mirrors.aliyun.com/repo/epel-7.repo'
+common_packages:
+  - vim
+  - iftop
+  - iotop
+  - htop
+  - sysstat
+  - mtr
+  - lrzsz
+  - zip
+  - unzip
+  - screen
+  - curl
+  - wget
+  - telnet
+  - axel
+  - ntp
+  - tree
+  - net-tools
+  - util-linux-ng
+  - rsync
+
+del_user:
+  - adm
+  - lp
+  - sync
+  - shutdown
+  - halt
+  - news
+  - uucp
+  - operator
+  - games
+  - gopher
+  - ftp
+
+del_group:
+  - adm
+  - lp
+  - mail
+  - news
+  - uucp
+  - games
+  - dip
+  - pppusers
+  - popusers
+  - slipusers

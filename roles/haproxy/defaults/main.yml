@@ -1,0 +1,11 @@
+---
+haproxy_user: "haproxy"
+haproxy_group: "haproxy"
+haproxy_chroot: /var/lib/haproxy
+haproxy_log: /var/log/haproxy
+
+
+haproxy_conn: 10000
+haproxy_conf_file: /etc/haproxy/haproxy.cfg
+haproxy_pid_file: /var/run/haproxy.pid
+haproxy_socket_file: /var/run/haproxy.socket

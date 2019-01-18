@@ -1,0 +1,26 @@
+---
+- name: Add ansible group
+  group:
+    name: "{{ user_group }}"
+
+- name: Add ansible user
+  user:
+    name: "{{ user_name }}"
+    group: "{{ user_group }}"
+    shell: "{{ user_shell }}"
+
+- name: Create ssh directory
+  file:
+    path: "/home/{{ user_name }}/.ssh"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_group }}"
+    mode: 0700
+
+- name: Configure ssh key
+  template:
+    src: id_rsa.pub
+    dest: "/home/{{user_name}}/.ssh/authorized_keys"
+    owner: "{{ user_name }}"
+    group: "{{ user_group }}"
+    mode: 0600

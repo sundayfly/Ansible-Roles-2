@@ -1,0 +1,50 @@
+---
+rabbitmq_data: /data/rabbitmq
+rabbitmq_erlang_cookie: STARSING
+rabbitmq_logrorate_period: weekly
+rabbitmq_logrorate_amount: 20
+rabbitmq_apt_repo: https://dl.bintray.com/rabbitmq/debian
+rabbitmq_apt_key: https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc 
+erlang_apt_repo: http://dl.bintray.com/rabbitmq-erlang/debian
+
+rabbitmq_apt_version: "rabbitmq-server=3.7.8-1"
+
+config_rabbitmq_ha: true
+enable_rabbitmq_cluster: true
+
+rabbitmq_ulimit_open_files: 10240
+rabbitmq_memory_high_watermark: 0.4
+rabbitmq_cluster: localhost
+rabbitmq_vhosts: []
+rabbitmq_use_logname: 'false'
+
+
+rabbitmq_amqp_port: 5672
+rabbitmq_epmd_port: 4369
+rabbitmq_node_port: 25672
+
+rabbitmq_instant_queues: false
+rabbitmq_instant_shovels: false
+
+rabbitmq_plugins:
+  - rabbitmq_management
+  - rabbitmq_management_agent
+
+rabbitmq_users:
+  - user: admin
+    password: admin
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    tags: administrator
+
+rabbitmq_users_removed:
+  - guest
+
+rabbitmq_vhosts_queues:
+  - vhost_name:
+    queues: []
+    user:
+    password:
+    durable: 'true'

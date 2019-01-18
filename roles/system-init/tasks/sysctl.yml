@@ -1,0 +1,15 @@
+---
+- sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: 1
+    state: present
+    sysctl_set: yes
+
+# set in /proc and in the sysctl file and reload if necessary
+- sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+

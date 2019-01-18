@@ -1,0 +1,19 @@
+### ubuntu ###
+common_packages:
+  - vim
+  - iftop
+  - iotop
+  - htop
+  - sysstat
+  - mtr
+  - lrzsz
+  - zip
+  - unzip
+  - screen
+  - curl
+  - wget
+  - telnet
+  - axel
+  - ntp
+  - tree
+  - rsync

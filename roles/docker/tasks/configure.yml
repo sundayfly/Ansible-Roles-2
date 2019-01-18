@@ -1,0 +1,11 @@
+- name: Create docker config directory.
+  file:
+    path: /etc/docker
+    state: directory
+
+- name: Configure docker startup parameters.
+  template:
+    src: docker-daemon.json
+    dest: "/etc/docker/daemon.json"
+    mode: 0640
+  notify: restart docker

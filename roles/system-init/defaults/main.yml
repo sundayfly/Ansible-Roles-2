@@ -1,0 +1,8 @@
+---
+### CentOS variables in vars/RedHat.yml
+### Ubuntu variables in vars/Debian.yml
+
+### General ###
+ssh_user: sunday
+authorized_key: '/root/.ssh/authorized_keys'
+ssh_port: 10240

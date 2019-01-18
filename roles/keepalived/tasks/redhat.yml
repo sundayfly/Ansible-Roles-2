@@ -1,0 +1,55 @@
+---
+- name: Ensure docker old packages are removed.
+  yum:
+    name: "{{ item }}"
+    state: removed
+  with_items:
+    - docker
+    - docker-common
+    - docker-selinux
+    - docker-engine
+
+- name: Add docker repo.
+  shell: "yum-config-manager --add-repo {{ docker_yum_repo }}"
+
+- name: Modify the docker source
+  replace:
+    path: /etc/yum.repos.d/docker-ce.repo
+    regexp: 'download\.docker\.com'
+    replace: 'mirrors.ustc.edu.cn/docker-ce'
+
+- name: Ensure depend package are installed.
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    - "{{ docker_yum_version | default('docker-ce')}}"
+
+- name: Create docker config directory.
+  file:
+    path: /etc/docker
+    state: directory
+
+#- name: Create docker data directory.
+#  file:
+#    path: "{{ docker_data_root }}"
+#    state: directory
+#  when: '"{{ docker_data_root }}" != "/var/lib/docker"'
+#  register: aaa
+#
+#- name: print name
+#  debug: 
+#    msg: "{{ aaa }}"
+
+- name: Configure docker startup parameters.
+  template:
+    src: docker-daemon.json
+    dest: "/etc/docker/daemon.json"
+
+- include_tasks: sysctl.yml
+
+- name: Ensure docker is started and enabled to start at boot.
+  service: name=docker state=started enabled=yes

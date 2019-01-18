@@ -1,0 +1,27 @@
+---
+- name: Ensure docker old packages are removed.
+  yum:
+    name: "{{ old_docker_packages }}"
+    state: removed
+
+- name: Add docker repo.
+  get_url:
+    url: "{{ docker_yum_repo }}"
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: 0644
+
+- name: Ensure depend packages are installed.
+  yum:
+    name: "{{ docker_depend_packages }}"
+    state: present
+
+- name: Ensure docker package is installed.
+  yum:
+    name: "{{ docker_yum_version | default('docker-ce') }}"
+    state: present
+
+- name: Ensure docker is started and enabled to start at boot.
+  service: 
+    name: docker
+    state: started
+    enabled: yes

@@ -1,0 +1,73 @@
+global_defs {
+   notification_email {
+     root@localhost
+   }
+   notification_email_from ka@localhost
+   smtp_server 127.0.0.1
+   smtp_connect_timeout 30
+   router_id ka101
+   vrrp_mcast_group4 224.0.0.111
+}
+
+#vrrp_sync_group VG_1 {
+#    group {
+#        Extranet_1
+#        Intranet_1
+#    }
+#}
+
+vrrp_script chk_haproxy {
+    #script "killall -0 haproxy"
+    interval 2
+    weight -10
+}
+
+vrrp_instance Extranet_1 {
+    state MASTER
+    interface eth0
+    virtual_router_id 171
+    priority 100
+    advert_int 1    
+
+    authentication {
+        auth_type PASS
+        auth_pass sunday0
+    }
+
+    virtual_ipaddress {
+        {{ extranet_virtual_ip }}
+    }
+
+    track_script {
+        chk_haproxy
+    }
+
+    notify_master "/etc/keepalived/notify.sh master"
+    notify_backup "/etc/keepalived/notify.sh backup"
+    notify_fault "/etc/keepalived/notify.sh fault"
+}
+
+#vrrp_instance Intranet_1 {
+#    state MASTER
+#    interface eth1
+#    virtual_router_id 191
+#    priority 100
+#    advert_int 1
+
+#    authentication {
+#        auth_type PASS
+#        auth_pass sunday1
+#    }
+#
+#    virtual_ipaddress {
+#        {{ intranet_virtual_ip }}
+#    }
+#        
+#    track_script {
+#        chk_haproxy
+#    }
+#
+#    notify_master "/etc/keepalived/notify.sh master"
+#    notify_backup "/etc/keepalived/notify.sh backup"
+#    notify_fault "/etc/keepalived/notify.sh fault"
+#}

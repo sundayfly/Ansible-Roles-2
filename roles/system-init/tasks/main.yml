@@ -1,0 +1,28 @@
+---
+#- name: Include OS-specific variables.
+- include_vars: "{{ ansible_os_family|lower }}.yml"
+- include_tasks: "{{ ansible_os_family|lower }}.yml"
+- include_tasks: ulimit.yml
+  tags: 
+    - ulimit
+
+- include_tasks: rc-local.yml
+  tags:
+    - rc-local
+
+- include_tasks: user_ssh.yml
+  tags:
+    - user_ssh
+
+- include_tasks: sshd_config.yml
+  tags:
+    - sshd_config
+
+- include_tasks: del_user_group.yml
+  tags:
+    - del_user
+    - del_group
+
+- include_tasks: network.yml
+  tags:
+    - network

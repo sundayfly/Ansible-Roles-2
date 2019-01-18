@@ -1,0 +1,4 @@
+---
+user_name: www
+user_group: www
+user_shell: "/bin/bash"

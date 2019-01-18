@@ -1,0 +1,26 @@
+---
+#- name: Create shadowsocks directory.
+#  file:
+#    path: /root/ss
+#    state: directory
+
+#- name: Copy ss and ssr docker-compose.yml.
+#  template:
+#    src: ss.yml
+#    dest: /root/ss/docker-compose.yml
+
+- name: Run shadowsocks docker.
+  docker_container:
+    name: ss
+    image: sundayle/shadowsocks-libev
+    state: started
+    restart: yes
+    restart_policy: always
+    ports:
+    - "24781:8388/tcp"
+    - "24782:8388/tcp"
+    - "24783:8388/tcp"
+    - "24784:8388/tcp"
+    env:
+      METHOD: chacha20-ietf-poly1305
+      PASSWORD: sunday

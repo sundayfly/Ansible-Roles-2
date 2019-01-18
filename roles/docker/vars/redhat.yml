@@ -1,0 +1,17 @@
+### CentOS ###
+docker_yum_repo: "https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo"
+
+# 查看及安装指定版本 yum list docker-ce --showduplicates | sorn -r
+# 注释docker_yum_version则安装最新稳定版
+docker_yum_version: "docker-ce-18.06.1.ce"
+
+old_docker_packages:
+  - docker
+  - docker-common
+  - docker-engine
+# - docker-selinux
+
+docker_depend_packages:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2

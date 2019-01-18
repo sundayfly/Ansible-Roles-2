@@ -1,0 +1,59 @@
+---
+#- name: Include OS-specific variables.
+- include_vars: "{{ ansible_os_family|lower }}.yml"
+- include: "{{ ansible_os_family|lower }}.yml"
+- include: ulimit.yml
+  tags: 
+    - ulimit
+
+- include: rc-local.yml
+  tags:
+    - rc-local
+
+- include: user_ssh.yml
+  tags:
+    - user_ssh
+
+- include: sshd_config.yml
+  tags:
+    - sshd_config
+
+- include: del_user_group.yml
+  tags:
+    - del_user
+    - del_group
+
+- include: network.yml
+  tags:
+    - network
+
+- include: docker.yml
+  tags:
+    - docker
+
+- include: docker-compose.yml
+  tags:
+    - docker
+    - docker-compose
+
+- include: python-pip.yml
+  tags:
+    - python
+    - python-pip
+
+- include: ss.yml
+  tags:
+    - ss
+
+- include: ssr.yml
+  tags:
+    - ssr
+
+- include: sysctl.yml
+  tags:
+    - sysctl
+
+- include: upgrade-kernel.yml
+  tags:
+    - bbr
+    - kernel

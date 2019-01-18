@@ -1,0 +1,9 @@
+---
+- name: Install python packages.
+  yum:
+    name: "{{ python_packages }}"
+    state: present
+
+# Install docker-py package.
+- pip:
+    name: docker-py

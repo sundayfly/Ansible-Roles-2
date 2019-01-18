@@ -1,0 +1,13 @@
+---
+- name: start haproxy
+  service: name=haproxy state=started
+
+- name: restart haproxy
+  service: name=haproxy state=restarted
+
+- name: validate haproxy configuration
+  command: haproxy -D -q -V -f {{haproxy_conf}}
+  changed_when: False
+
+- name: reload haproxy
+  service: name=haproxy state=reloaded

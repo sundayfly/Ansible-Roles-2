@@ -1,0 +1,8 @@
+---
+- name: mkdir nginx vhost
+  file: path={{ ngx_vhost_path }} state=directory
+
+- name: copy nginx vhost config
+  template: src=default.conf dest={{ ngx_default_vhost_file }} force=yes owner=root group=root mode=0644
+  notify: reload nginx
+

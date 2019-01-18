@@ -1,0 +1,67 @@
+### redhat ###
+centos7_repo: 'http://mirrors.aliyun.com/repo/Centos-7.repo'
+centos7_epel: 'http://mirrors.aliyun.com/repo/epel-7.repo'
+common_packages:
+  - vim
+#  - iftop
+#  - iotop
+#  - htop
+#  - sysstat
+#  - mtr
+  - lrzsz
+  - zip
+  - unzip
+  - screen
+  - curl
+  - wget
+  - telnet
+  - epel-release
+#  - axel
+#  - ntp
+  - tree
+  - net-tools
+#  - util-linux-ng
+#  - rsync
+
+# python package
+python_packages:
+  - python-setuptools
+  - python-pip
+  - python-wheel
+
+docker_yum_repo: 'https://download.docker.com/linux/centos/docker-ce.repo'
+docker_yum_version: "docker-ce-18.06.1.ce"
+old_docker_packages:
+  - docker
+  - docker-common
+  - docker-engine
+# - docker-selinux
+docker_depend_packages:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+del_user:
+  - adm
+  - lp
+  - sync
+  - shutdown
+  - halt
+  - news
+  - uucp
+  - operator
+  - games
+  - gopher
+  - ftp
+
+del_group:
+  - adm
+  - lp
+  - mail
+  - news
+  - uucp
+  - games
+  - dip
+  - pppusers
+  - popusers
+  - slipusers
+

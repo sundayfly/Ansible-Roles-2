@@ -1,0 +1,2 @@
+---
+rabbitmq_apt_version: "rabbitmq-server=3.7.8-1"

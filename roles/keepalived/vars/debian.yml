@@ -1,0 +1,10 @@
+---
+keepalived_dependencies:
+  - build-essential
+  - automake
+  - libtool
+  - pkg-config
+  - libssl-dev
+
+keepalived_config_file: /etc/keepalived/keepalived.conf
+# keepalived_apt_version: "keepalived=1.2.24-1ubuntu0.16.04.1"

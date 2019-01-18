@@ -1,0 +1,6 @@
+---
+notify_email: "root@localhost"
+interface_master: enp5s0f0
+interface_slave: enp0s25
+
+vip: 192.168.10.9

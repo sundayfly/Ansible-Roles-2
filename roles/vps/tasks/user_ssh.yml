@@ -1,0 +1,6 @@
+---
+- name: Copy ssh key to general user
+  authorized_key:
+    user: "{{ ssh_user }}"
+    key: "{{ lookup('file','{{ authorized_key }}')}}"
+    state: present

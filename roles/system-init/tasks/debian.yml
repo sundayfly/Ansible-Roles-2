@@ -1,0 +1,6 @@
+---
+- name: Ensure common package is installed.
+  apt:
+    name: "{{ common_packages }}"
+    state: present
+  tags: common_packages

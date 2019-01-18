@@ -1,0 +1,35 @@
+---
+#- name: Add Aliyun repo and epel.
+#  get_url:
+#    url: "{{ item.url }}" 
+#    dest: "{{ item.dest }}" 
+#    mode: 0644
+#    force: yes
+#  with_items:
+#    - { url: "{{ centos7_repo }}",dest: /etc/yum.repos.d/CentOS-Base.repo }
+#    - { url: "{{ centos7_epel }}",dest: /etc/yum.repos.d/epel.repo }
+
+- name: Disable selinux
+  selinux:
+    state: disabled
+
+- name:  Ensure admin user sudo
+  lineinfile: 
+    dest: /etc/sudoers
+    create: yes
+    regexp: "^{{ssh_user}}"
+    line: '{{ssh_user}}    ALL=(ALL)       NOPASSWD:ALL'
+    validate: 'visudo -cf %s'
+
+- name: Set timezone to Asia/Shanghai
+  timezone:
+    name: Asia/Shanghai
+
+#- name: Ntpdate time
+#  command: ntpdate ntp1.aliyun.com
+
+- name: Ensure common package is installed.
+  yum:
+    name: "{{ common_packages }}"
+    state: present
+  tags: common_packages
