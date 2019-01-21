@@ -1,9 +1,10 @@
-[root@node4 ~]# ssh-keygen 
-Generating public/private rsa key pair.
+```
+[root@node4 ~]# ssh-keygen  
+Generating public/private rsa key pair.  
 
-Enter file in which to save the key (/root/.ssh/id_rsa): Created directory '/root/.ssh'.
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
+Enter file in which to save the key (/root/.ssh/id_rsa): Created directory '/root/.ssh'.  
+Enter passphrase (empty for no passphrase):   
+Enter same passphrase again:  
 Your identification has been saved in /root/.ssh/id_rsa.
 Your public key has been saved in /root/.ssh/id_rsa.pub.
 The key fingerprint is:
@@ -24,3 +25,4 @@ The key's randomart image is:
 total 8
 -rw------- 1 root root 1679 Nov 22 15:58 id_rsa # 密钥
 -rw-r--r-- 1 root root  392 Nov 22 15:58 id_rsa.pub # 公钥
+```
