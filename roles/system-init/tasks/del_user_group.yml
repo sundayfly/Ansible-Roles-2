@@ -4,6 +4,7 @@
     name: "{{ del_user }}"
     state: absent
     remove: yes
+    force: yes
 
 - name: Delete unsafe group
   group:

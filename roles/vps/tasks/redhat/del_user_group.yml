@@ -1,12 +1,14 @@
 ---
 - name: Delete unsafe user
   user:
-    name: "{{ del_user }}"
+    name: "{{ item }}"
     state: absent
-    remove: yes
+#    remove: yes
+    force: yes
+  with_items:
+    - "{{ del_user }}"
 
 - name: Delete unsafe group
   group:
     name: "{{ del_group }}" 
     state: absent
-

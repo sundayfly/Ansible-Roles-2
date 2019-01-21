@@ -17,3 +17,26 @@ common_packages:
   - ntp
   - tree
   - rsync
+
+python_packages:
+  - python-setuptools
+  - python-pip
+  - python3-pip
+  - python-wheel
+
+docker_apt_key: "https://download.docker.com/linux/ubuntu/gpg"
+docker_apt_repo: "https://download.docker.com/linux/ubuntu"
+
+### 使用apt-cache madison docker-ce 选择指定版本
+docker_apt_version: "docker-ce=18.06.1~ce~3-0~ubuntu"
+
+old_docker_packages:
+  - docker
+  - docker-engine
+  - docker.io
+
+docker_depend_packages:
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common
+  - curl

@@ -1,7 +1,8 @@
 ---
 ssh_user: root
 authorized_key: '/root/.ssh/authorized_keys'
-ssh_port: 10240
+ssh_port: 24790
+docker_compose_version: 1.23.2
 
 sysctl_config:
   - { name: fs.file-max, value: 1024000 }

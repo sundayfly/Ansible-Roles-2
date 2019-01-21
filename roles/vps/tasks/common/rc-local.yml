@@ -1,0 +1,21 @@
+---
+- name: Ensure rc.local is created.
+  file:
+    path: '/etc/rc.local'
+    mode: 0755
+
+- name: Ensure rc.local bash script
+  lineinfile:
+    backrefs: no
+    dest: /etc/rc.local
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^u#!/bin/bash',line: '#!/bin/bash' }
+
+- name: Ensure rc-local is started and enabled to start at boot.
+  systemd: 
+    name: rc-local
+    state: started
+    enabled: yes
+

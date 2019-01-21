@@ -4,6 +4,7 @@
     name: "{{ python_packages }}"
     state: present
 
-# Install docker-py package.
-- pip:
+
+- name: Install docker-py packages.
+  pip:
     name: docker-py

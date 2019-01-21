@@ -1,14 +1,4 @@
 ---
-#- name: Create shadowsocks directory.
-#  file:
-#    path: /root/ss
-#    state: directory
-
-#- name: Copy ss and ssr docker-compose.yml.
-#  template:
-#    src: ss.yml
-#    dest: /root/ss/docker-compose.yml
-
 - name: Run shadowsocks docker.
   docker_container:
     name: ss

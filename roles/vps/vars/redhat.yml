@@ -23,7 +23,6 @@ common_packages:
 #  - util-linux-ng
 #  - rsync
 
-# python package
 python_packages:
   - python-setuptools
   - python-pip
@@ -40,6 +39,7 @@ docker_depend_packages:
   - yum-utils
   - device-mapper-persistent-data
   - lvm2
+
 del_user:
   - adm
   - lp
@@ -64,4 +64,3 @@ del_group:
   - pppusers
   - popusers
   - slipusers
-
