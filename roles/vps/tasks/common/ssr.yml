@@ -14,4 +14,4 @@
     env:
       METHOD: chacha20-ietf
       PROTOCOL: auth_aes128_md5
-      PASSWORD: sunday
+      PASSWORD: sundayle.com

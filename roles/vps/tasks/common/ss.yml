@@ -13,4 +13,4 @@
     - "24784:8388/tcp"
     env:
       METHOD: chacha20-ietf-poly1305
-      PASSWORD: sunday
+      PASSWORD: sundayle.com
