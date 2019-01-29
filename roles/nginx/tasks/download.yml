@@ -1,0 +1,20 @@
+---
+- name: Download nginx package.
+  get_url:
+    url: http://package.sundayle.com/nginx/nginx-{{ nginx_version }}.tar.gz
+    dest: /usr/local/src/
+    mode: 0750
+  register: nginx_package_result
+
+- name: Download nginx module.
+  get_url:
+    url: "{{ item }}"
+    dest: /usr/local/src/
+    mode: 0750
+  with_items:
+    - http://package.sundayle.com/nginx/nginx_module/echo-nginx-module-master.zip
+    - http://package.sundayle.com/nginx/nginx_module/headers-more-nginx-module-master.zip
+    - http://package.sundayle.com/nginx/nginx_module/nginx_upstream_check_module-master.zip
+    - http://package.sundayle.com/nginx/nginx_module/nginx-upload-module-2.2.zip 
+    - http://package.sundayle.com/nginx/nginx_module/ngx_cache_purge-2.3.tar.gz 
+  register: nginx_module_result

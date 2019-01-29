@@ -1,0 +1,33 @@
+---
+
+
+- name: Copy nginx.conf.
+  template: 
+    src: nginx.conf
+    dest: "{{ nginx_conf_path }}"
+
+- name: Create nginx log path.
+  file: 
+    path: "{{ nginx_log_path }}"
+    state: directory
+
+- name: Create nginx link.
+  file: 
+    src: "{{ nginx_conf_path }}"
+    dest: /etc/nginx
+    state: link
+
+- name: Copy nginx env.
+  template:
+    src: nginx.sh
+    dest: /etc/profile.d/nginx.sh
+    mode: 0755
+
+- name: Chown permission.
+  file:
+    path: "{{ item }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+  with_items:
+    - "{{ nginx_path }}"
+    - "{{ nginx_log_path }}"

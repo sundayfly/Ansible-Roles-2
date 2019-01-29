@@ -11,10 +11,10 @@
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON={{ngx_path}}/sbin/nginx
+DAEMON={{nginx_path}}/sbin/nginx
 NAME=nginx
 DESC=nginx
-PIDFILE={{ngx_path}}/logs/nginx.pid
+PIDFILE={{nginx_path}}/logs/nginx.pid
 
 test -x $DAEMON || exit 0
 

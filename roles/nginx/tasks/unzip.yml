@@ -1,0 +1,8 @@
+- name: Unzip nginx and module
+  shell: cd /usr/local/src \
+      && tar xf "nginx-{{ nginx_version }}.tar.gz" \
+      && unzip -o echo-nginx-module-master.zip \
+      && unzip -o headers-more-nginx-module-master.zip \
+      && unzip -o nginx_upstream_check_module-master.zip \
+      && unzip -o nginx-upload-module-2.2.zip \
+      && tar xf ngx_cache_purge-2.3.tar.gz

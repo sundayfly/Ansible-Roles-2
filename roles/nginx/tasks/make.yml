@@ -1,0 +1,6 @@
+---
+- name: Complile nginx.
+  shell: "cd /usr/local/src/nginx-{{ nginx_version }} && {{ configure_args }}"
+
+- name: Make nginx.
+  shell: "cd /usr/local/src/nginx-{{ nginx_version }} && {{ make_args }}"

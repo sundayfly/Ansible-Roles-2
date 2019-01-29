@@ -1,0 +1,16 @@
+---
+- name: Check if nginx is already.
+  stat:
+    path: "{{ nginx_path }}/sbin/nginx"
+  register: nginx_result
+
+- name: Display nginx version.
+  command: "/usr/local/webserver/nginx/sbin/nginx -v"
+  when: nginx_result.stat.exists
+  register: nginx_version_result
+  changed_when: false
+  ignore_errors: true
+
+- debug: 
+    #var: nginx_version_result.stdout
+    var: nginx_version_result.stderr

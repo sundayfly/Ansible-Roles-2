@@ -1,0 +1,47 @@
+---
+#- name: Define nginx_user.
+#  set_fact:
+#    nginx_user: "{{ nginx_user }}"
+#  when: nginx_user is not defined
+
+# Setup/install tasks.
+- include: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: user.yml
+  tags:
+    - user
+
+- include: check.yml
+  tags:
+    - check
+
+- include: download.yml
+  tags:
+    - download
+  when: not nginx_result.stat.exists
+
+- include: unzip.yml
+  tags:
+    - unzip
+  when: not nginx_result.stat.exists
+
+- include: make.yml
+  tags:
+    - make
+  when: not nginx_result.stat.exists
+
+- include: configure.yml
+  tags:
+    - configure
+
+- include: vhosts.yml
+  tags:
+    - vhosts
+
+- include: service.yml
+  tags: 
+    - service
