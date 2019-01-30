@@ -16,7 +16,6 @@
   command: "{{ configure_args }}"
   args:
     chdir: "{{ nginx_source_path }}/nginx-{{ nginx_version }}"
-#    creates: "{{ nginx_source_path }}/nginx-{{nginx_version}}"
 
 - name: Patch nginx_upstream_check_module 
   patch: 
