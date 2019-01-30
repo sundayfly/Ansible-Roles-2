@@ -1,5 +1,5 @@
 ---
 - name: Install Redhat nginx dependency package
   yum: 
-    name: [gcc,make,openssl-devel,pcre-devel,gd-devel,wget]
+    name: [gcc,make,openssl-devel,pcre-devel,gd-devel,wget,geoip-devel]
     state: present

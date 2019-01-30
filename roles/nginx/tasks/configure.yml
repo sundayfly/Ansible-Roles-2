@@ -1,6 +1,4 @@
 ---
-
-
 - name: Copy nginx.conf.
   template: 
     src: nginx.conf

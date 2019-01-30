@@ -1,6 +1,31 @@
 ---
-- name: Complile nginx.
-  shell: "cd /usr/local/src/nginx-{{ nginx_version }} && {{ configure_args }}"
+- name: Custom version info.
+  replace:
+    path: "{{ item.path }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+    backup: yes
+  with_items:
+    - { path: "{{ nginx_source_path }}/nginx-{{nginx_version }}/src/core/nginx.h",regexp: "{{ nginx_version }}",replace: "" }
+    - { path: "{{ nginx_source_path }}/nginx-{{nginx_version }}/src/core/nginx.h",regexp: 'nginx/',replace: "{{ custom_version }}" }
+    - { path: "{{ nginx_source_path }}/nginx-{{nginx_version }}/src/core/nginx.h",regexp: '"NGINX"',replace: '"{{ custom_version|upper }}"' }
+    - { path: "{{ nginx_source_path }}/nginx-{{nginx_version }}/src/http/ngx_http_special_response.c",regexp: 'nginx<',replace: "{{ custom_version }}<"}
+    - { path: "{{ nginx_source_path }}/nginx-{{nginx_version }}/src/http/ngx_http_header_filter_module.c",regexp: 'Server: nginx',replace: "Server: {{ custom_version }}"}
+  
+- name: Complile nginx source.
+  command: "{{ configure_args }}"
+  args:
+    chdir: "{{ nginx_source_path }}/nginx-{{ nginx_version }}"
+#    creates: "{{ nginx_source_path }}/nginx-{{nginx_version}}"
+
+- name: Patch nginx_upstream_check_module 
+  patch: 
+    src: "{{ nginx_module_path }}/nginx_upstream_check_module-master/check_1.14.0+.patch"
+    basedir: "{{ nginx_source_path }}/nginx-{{ nginx_version }}"
+    strip: 1
+    remote_src: yes
 
 - name: Make nginx.
-  shell: "cd /usr/local/src/nginx-{{ nginx_version }} && {{ make_args }}"
+  command: "{{ make_args }}"
+  args:
+    chdir: "{{ nginx_source_path }}/nginx-{{ nginx_version }}"

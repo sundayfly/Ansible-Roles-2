@@ -22,17 +22,17 @@
 - include: download.yml
   tags:
     - download
-  when: not nginx_result.stat.exists
+#  when: not nginx_result.stat.exists
 
 - include: unzip.yml
   tags:
     - unzip
-  when: not nginx_result.stat.exists
+#  when: not nginx_result.stat.exists
 
 - include: make.yml
   tags:
     - make
-  when: not nginx_result.stat.exists
+#  when: not nginx_result.stat.exists
 
 - include: configure.yml
   tags:

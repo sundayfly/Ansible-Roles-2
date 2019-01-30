@@ -1,8 +1,23 @@
-- name: Unzip nginx and module
-  shell: cd /usr/local/src \
-      && tar xf "nginx-{{ nginx_version }}.tar.gz" \
-      && unzip -o echo-nginx-module-master.zip \
-      && unzip -o headers-more-nginx-module-master.zip \
-      && unzip -o nginx_upstream_check_module-master.zip \
-      && unzip -o nginx-upload-module-2.2.zip \
-      && tar xf ngx_cache_purge-2.3.tar.gz
+#- name: Unzip nginx package.
+ # command: tar xf nginx-{{ nginx_version }}.tar.gz
+ # args:
+ #   chdir: "{{ nginx_source_path }}"
+ #   creates: "{{ nginx_source_path }}/nginx-{{nginx_version}}"
+
+- name: Unzip nginx source package.
+  unarchive:
+    src: "{{ nginx_source_path }}/nginx-{{ nginx_version}}.tar.gz"
+    dest: "{{ nginx_source_path }}"
+    remote_src: yes
+
+- name: Unzip nginx module.
+  unarchive:
+    src: "{{ item }}"
+    dest: "{{ nginx_module_path }}"
+    remote_src: yes
+  with_items:
+    - "{{ nginx_module_path }}/echo-nginx-module-master.zip"
+    - "{{ nginx_module_path }}/headers-more-nginx-module-master.zip"
+    - "{{ nginx_module_path }}/nginx_upstream_check_module-master.zip"
+    - "{{ nginx_module_path }}/nginx-upload-module-2.2.zip"
+    - "{{ nginx_module_path }}/ngx_cache_purge-2.3.tar.gz"

@@ -1,5 +1,5 @@
 ---
 - name: Install Debian nginx dependency package.
   apt: 
-    name: [gcc,make,libtool,libssl-dev,libpcre3-dev,libgd-dev]
+    name: [gcc,make,libtool,libssl-dev,libpcre3-dev,libgd-dev,libgeoip-dev]
     state: present

@@ -1,16 +1,23 @@
 ---
+- name: Create nginx module path.
+  file:
+    path: "{{ nginx_module_path }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    state: directory
+
 - name: Download nginx package.
   get_url:
     url: http://package.sundayle.com/nginx/nginx-{{ nginx_version }}.tar.gz
-    dest: /usr/local/src/
-    mode: 0750
+    dest: "{{ nginx_source_path }}"
+    mode: 0644
   register: nginx_package_result
 
 - name: Download nginx module.
   get_url:
     url: "{{ item }}"
-    dest: /usr/local/src/
-    mode: 0750
+    dest: "{{ nginx_module_path }}"
+    mode: 0644
   with_items:
     - http://package.sundayle.com/nginx/nginx_module/echo-nginx-module-master.zip
     - http://package.sundayle.com/nginx/nginx_module/headers-more-nginx-module-master.zip
