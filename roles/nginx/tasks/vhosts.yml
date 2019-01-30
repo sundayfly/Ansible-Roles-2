@@ -1,10 +1,10 @@
 ---
-- name: mkdir nginx vhost
+- name: Create nginx vhost.
   file: 
     path: "{{ nginx_vhosts_path }}"
     state: directory
 
-- name: copy nginx vhost config
+- name: Copy nginx vhost config.
   template: 
     src: default.conf
     dest: "{{ nginx_vhosts_path }}/default.conf" 
