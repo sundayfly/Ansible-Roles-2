@@ -1,15 +1,19 @@
 ### ubuntu ###
 
-docker_apt_key: "https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg"
-docker_apt_repo: "https://mirrors.aliyun.com/docker-ce/linux/ubuntu"
+#docker_apt_key: "https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg"
+#docker_apt_repo: "https://mirrors.aliyun.com/docker-ce/linux/ubuntu"
+docker_apt_key: "https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu/gpg"
+docker_apt_repo: "https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu"
 
 ### 使用apt-cache madison docker-ce 选择指定版本
-docker_apt_version: "docker-ce=18.06.1~ce~3-0~ubuntu"
+#docker_apt_version: "docker-ce=18.06.1~ce~3-0~ubuntu"
 
 old_docker_packages:
   - docker
   - docker-engine
   - docker.io
+#  - containerd
+#  - runc
 
 docker_depend_packages:
   - apt-transport-https

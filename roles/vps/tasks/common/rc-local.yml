@@ -3,6 +3,7 @@
   file:
     path: '/etc/rc.local'
     mode: 0755
+    state: touch
 
 - name: Ensure rc.local bash script
   lineinfile:

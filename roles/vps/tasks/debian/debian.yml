@@ -28,3 +28,5 @@
   apt:
     name: "{{ common_packages }}"
     state: present
+    update-cache: yes
+    force: yes
